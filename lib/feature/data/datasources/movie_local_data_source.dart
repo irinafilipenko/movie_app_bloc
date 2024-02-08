@@ -17,16 +17,6 @@ abstract class MovieLocalDataSource {
   Future<MovieModel?> getMovieFromCacheById(int id);
 }
 
-// abstract class MovieLocalDataSource {
-//   /// Gets the cached [List<PersonModel>] which was gotten the last time
-//   /// the user had an internet connection.
-//   ///
-//   /// Throws [CacheException] if no cached data is present.
-//
-//   Future<List<MovieModel>> getLastMoviesFromCache();
-//   Future<void> moviesToCache(List<MovieModel> movies);
-// }
-
 const String CACHED_PERSONS_LIST = 'CACHED_PERSONS_LIST';
 
 class DatabaseProvider {
@@ -63,23 +53,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
 
   MovieLocalDataSourceImpl({required this.databaseProvider});
 
-  // @override
-  // Future<MovieModel?> getMovieFromCacheById(int id) async {
-  //   final db = await databaseProvider.database;
-  //   final List<Map<String, dynamic>> result = await db.query(
-  //     CACHED_PERSONS_LIST,
-  //     where: "id = ?",
-  //     whereArgs: [id],
-  //   );
-  //   if (result.isNotEmpty) {
-  //     print('Found in cache: ${json.decode(result.first['json'])}');
-  //     return MovieModel.fromJson(json.decode(result.first['json']));
-  //   } else {
-  //     print('Not found in cache: $id');
-  //     return null;
-  //   }
-  // }
-
+  @override
   Future<MovieModel?> getMovieFromCacheById(int id) async {
     final db = await databaseProvider.database;
     final List<Map<String, dynamic>> result = await db.query(
@@ -111,18 +85,14 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
     }
   }
 
+  @override
   Future<void> moviesToCache(List<MovieModel> movies) async {
     final db = await databaseProvider.database;
     Batch batch = db.batch();
 
     for (var movie in movies) {
-      batch.insert(
-          CACHED_PERSONS_LIST,
-          {
-            'id': movie
-                .id, // Убедитесь, что id есть в модели MovieModel и сохраняется здесь
-            'json': json.encode(movie.toJson())
-          },
+      batch.insert(CACHED_PERSONS_LIST,
+          {'id': movie.id, 'json': json.encode(movie.toJson())},
           conflictAlgorithm: ConflictAlgorithm.replace);
     }
 

@@ -8,6 +8,7 @@ class MovieDetailPage extends StatelessWidget {
 
   const MovieDetailPage({Key? key, required this.person}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -71,6 +72,9 @@ class MovieDetailPage extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 16,
               ),
+            ),
+            const SizedBox(
+              height: 24,
             ),
           ],
         ),
