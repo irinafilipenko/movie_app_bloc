@@ -11,22 +11,20 @@ import 'package:movie_app/feature/domain/repositories/movie_repository.dart';
 class MovieRepositoryImpl implements MovieRepository {
   final MovieRemoteDataSource remoteDataSource;
   final MovieLocalDataSource localDataSource;
-  // final NetworkInfo networkInfo;
 
   MovieRepositoryImpl({
     required this.remoteDataSource,
     required this.localDataSource,
-    //   required this.networkInfo,
   });
 
   @override
   Future<Either<Failure, List<MovieEntity>>> searchMovie(String query) async {
-    return await _getPersons(() {
+    return await _getMovie(() {
       return remoteDataSource.searchMovie(query);
     });
   }
 
-  Future<Either<Failure, List<MovieModel>>> _getPersons(
+  Future<Either<Failure, List<MovieModel>>> _getMovie(
       Future<List<MovieModel>> Function() getPersons) async {
     try {
       // Пытаемся получить данные из удалённого источника

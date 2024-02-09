@@ -10,12 +10,11 @@ import 'locator_service.dart';
 import 'package:uni_links/uni_links.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final ServiceLocator sl = ServiceLocator();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  ServiceLocator();
-
   runApp(const MyApp());
 }
 
@@ -34,10 +33,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void initUniLinks() async {
-    // Подписка на события глубоких ссылок
     getLinksStream().listen((String? link) {
       var uri = Uri.parse(link!);
-      // print("Received deeplink: $link");
+
       _handleDeepLink(uri);
     }, onError: (err) {});
 
@@ -71,7 +69,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final sl = ServiceLocator();
+    // final sl = ServiceLocator();
 
     return BlocProvider<MovieSearchBloc>(
       create: (context) => sl.movieSearchBloc,
