@@ -9,12 +9,9 @@ class MovieSearchEmpty extends MovieSearchState {}
 class MovieSearchLoading extends MovieSearchState {}
 
 class MovieSearchLoaded extends MovieSearchState {
-  final List<MovieEntity> persons;
+  final List<MovieEntity> movies;
 
-  const MovieSearchLoaded({required this.persons});
-
-  @override
-  List<Object> get props => [persons];
+  const MovieSearchLoaded({required this.movies});
 }
 
 class MovieSearchError extends MovieSearchState {

@@ -22,10 +22,10 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
       SearchMovies event, Emitter<MovieSearchState> emit) async {
     emit(MovieSearchLoading());
     final failureOrMovie =
-        await searchMovie(SearchMovieParams(query: event.personQuery));
+        await searchMovie(SearchMovieParams(query: event.movieQuery));
     emit(failureOrMovie.fold(
         (failure) => MovieSearchError(message: _mapFailureToMessage(failure)),
-        (person) => MovieSearchLoaded(persons: person)));
+        (person) => MovieSearchLoaded(movies: person)));
   }
 
   String _mapFailureToMessage(Failure failure) {

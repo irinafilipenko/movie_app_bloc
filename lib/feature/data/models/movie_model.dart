@@ -35,4 +35,25 @@ class MovieModel extends MovieEntity {
       'poster_path': posterPath,
     };
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is MovieModel &&
+        other.id == id &&
+        other.title == title &&
+        other.overview == overview &&
+        other.voteAverage == voteAverage &&
+        other.posterPath == posterPath;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        title.hashCode ^
+        overview.hashCode ^
+        voteAverage.hashCode ^
+        posterPath.hashCode;
+  }
 }

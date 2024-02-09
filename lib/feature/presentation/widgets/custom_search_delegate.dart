@@ -57,8 +57,8 @@ class CustomSearchDelegate extends SearchDelegate {
             child: CircularProgressIndicator(),
           );
         } else if (state is MovieSearchLoaded) {
-          final person = state.persons;
-          if (person.isEmpty) {
+          final movieList = state.movies;
+          if (movieList.isEmpty) {
             return _showErrorText('No Cinema with that name found');
           }
           return GridView.builder(
@@ -68,9 +68,9 @@ class CustomSearchDelegate extends SearchDelegate {
               mainAxisSpacing: 10,
               childAspectRatio: 1,
             ),
-            itemCount: person.isNotEmpty ? person.length : 0,
+            itemCount: movieList.isNotEmpty ? movieList.length : 0,
             itemBuilder: (context, index) {
-              MovieEntity result = person[index];
+              MovieEntity result = movieList[index];
               return SearchResult(personResult: result);
             },
           );

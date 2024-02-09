@@ -25,21 +25,21 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   Future<Either<Failure, List<MovieModel>>> _getMovie(
-      Future<List<MovieModel>> Function() getPersons) async {
+      Future<List<MovieModel>> Function() getMovies) async {
     try {
       // Пытаемся получить данные из удалённого источника
-      final remotePerson = await getPersons();
+      final remoteMovie = await getMovies();
       // Кешируем полученные данные
-      await localDataSource.moviesToCache(remotePerson);
+      await localDataSource.moviesToCache(remoteMovie);
       // Возвращаем успешный результат с данными из удалённого источника
-      return Right(remotePerson);
+      return Right(remoteMovie);
     } on ServerException {
       // В случае ошибки при получении данных из удалённого источника
       // пытаемся получить данные из локального кеша
       try {
-        final localPerson = await localDataSource.getLastMoviesFromCache();
+        final localMovie = await localDataSource.getLastMoviesFromCache();
         // Возвращаем успешный результат с данными из локального кеша
-        return Right(localPerson);
+        return Right(localMovie);
       } on CacheException {
         // В случае ошибки при получении данных из локального кеша
         // возвращаем ошибку кеша

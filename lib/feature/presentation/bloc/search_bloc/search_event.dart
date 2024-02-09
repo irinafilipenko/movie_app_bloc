@@ -3,7 +3,7 @@ abstract class MovieSearchEvent {
 }
 
 class SearchMovies extends MovieSearchEvent {
-  final String personQuery;
+  final String movieQuery;
 
-  const SearchMovies(this.personQuery);
+  const SearchMovies(this.movieQuery);
 }
