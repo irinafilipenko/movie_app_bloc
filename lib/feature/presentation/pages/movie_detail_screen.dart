@@ -81,27 +81,4 @@ class MovieDetailPage extends StatelessWidget {
       ),
     );
   }
-
-  List<Widget> buildText(String text, String value) {
-    return [
-      Text(
-        text,
-        style: const TextStyle(
-          color: AppColors.greyColor,
-        ),
-      ),
-      const SizedBox(
-        height: 4,
-      ),
-      Text(
-        value,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
-      ),
-      const SizedBox(
-        height: 12,
-      ),
-    ];
-  }
 }
